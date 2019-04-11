@@ -7,12 +7,14 @@
 'use strict';
 
 const Combat = require('./core-combat');
+const Treasure = require('./core-treasure');
 
 let Simulate = {
     attackSimulate: function (player, target) {
         this.player = player;
         this.target = target;
         this.combatRounds = [];
+        this.treasure = Treasure.getTreasure(target);
 
         var combatRoundResult,
             attackLoop = 0;
@@ -36,7 +38,8 @@ let Simulate = {
         return {
             player: this.player,
             target: this.target,
-            combatRounds: this.combatRounds
+            combatRounds: this.combatRounds,
+            treasure: this.treasure
         };
     }
 };

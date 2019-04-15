@@ -7,16 +7,9 @@
 'use strict';
 
 const Dice = require('./core-dice');
+const Monster = require('./core-monster');
 
 let Treasure = {
-    CLASS_TYPE: {
-        VERMIN: 'Vermin',
-        FERAL_ANIMAL: 'Feral Animal',
-        LESSER_MOB: 'Lesser Monster',
-        NORMAL_MOB: 'Normal Monster',
-        GREATER_MOB: 'Greater Monster',
-        LEGENDARY_MOB: 'Legendary Monster',
-    },
     getTreasure: function (target) {
         this.treasure = {
             gold: 0
@@ -25,22 +18,49 @@ let Treasure = {
         if (!target.class) {
             this.treasure.gold = Dice.roll('D6');
         } else {
-            if (target.class == this.CLASS_TYPE.VERMIN) {
+            if (target.class == Monster.CLASS_TYPE.VERMIN) {
 
-            } else if (target.class == this.CLASS_TYPE.FERAL_ANIMAL) {
+            } else if (target.class == Monster.CLASS_TYPE.FERAL_ANIMAL) {
 
-            } else if (target.class == this.CLASS_TYPE.LESSER_MOB) {
+            } else if (target.class == Monster.CLASS_TYPE.LESSER_MOB) {
 
-            } else if (target.class == this.CLASS_TYPE.NORMAL_MOB) {
+            } else if (target.class == Monster.CLASS_TYPE.NORMAL_MOB) {
 
-            } else if (target.class == this.CLASS_TYPE.GREATER_MOB) {
+            } else if (target.class == Monster.CLASS_TYPE.GREATER_MOB) {
 
-            } else if (target.class == this.CLASS_TYPE.LEGENDARY_MOB) {
+            } else if (target.class == Monster.CLASS_TYPE.LEGENDARY_MOB) {
 
             }
         }
 
         return this.treasure;
+    },
+    getTreasureMagic: function () {
+        let treasureRoll = Dice.roll('D12'),
+            treasureFound = false;
+
+        switch (treasureRoll) {
+            case 2:
+                break;
+            case 12:
+                break;
+        }
+
+        return treasureFound;
+    },
+    getTreasureChest: function () {
+        let treasureRoll = Dice.roll('D12'),
+            treasureFound = false;
+
+        switch (treasureRoll) {
+            case 2:
+                break;
+            case 12:
+                treasureFound = this.getTreasureMagic();
+                break;
+        }
+
+        return treasureFound;
     }
 };
 

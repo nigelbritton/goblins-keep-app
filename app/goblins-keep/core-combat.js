@@ -51,8 +51,7 @@ let Combat = {
         var hitSuccess = {
             attackRoll: hitRoll,
             status: 'Hit',
-            damageRoll: 0,
-            wounded: false
+            attackDamageRolls: []
         };
         switch (hitRoll) {
             case 1:
@@ -60,17 +59,40 @@ let Combat = {
                 break;
             case 12:
                 hitSuccess.status = 'Critical Hit';
-                hitSuccess.damageRoll = Dice.roll('D12');
-                if (hitSuccess.damageRoll >= target.stats.T) {
-                    hitSuccess.wounded = true;
+                for (let attackRounds = 0; attackRounds < player.weapons[0].damage; attackRounds++) {
+                    let attackDamageRoll = {
+                        damageRoll: Dice.roll('D12'),
+                        wounded:  false
+                    };
+                    if (attackDamageRoll.damageRoll >= target.stats.T) {
+                        attackDamageRoll.wounded = true;
+                    }
+                    hitSuccess.attackDamageRolls.push(attackDamageRoll);
                 }
-            break;
+                // Bonus Attack
+                for (let attackRounds = 0; attackRounds < player.weapons[0].damage; attackRounds++) {
+                    let attackDamageRoll = {
+                        damageRoll: Dice.roll('D12'),
+                        wounded:  false
+                    };
+                    if (attackDamageRoll.damageRoll >= target.stats.T) {
+                        attackDamageRoll.wounded = true;
+                    }
+                    hitSuccess.attackDamageRolls.push(attackDamageRoll);
+                }
+                break;
             default:
                 hitSuccess.status = (hitRoll >= hitTargetValue ? 'Hit' : 'Miss');
                 if (hitSuccess.status === 'Hit') {
-                    hitSuccess.damageRoll = Dice.roll('D12');
-                    if (hitSuccess.damageRoll >= target.stats.T) {
-                        hitSuccess.wounded = true;
+                    for (let attackRounds = 0; attackRounds < player.weapons[0].damage; attackRounds++) {
+                        let attackDamageRoll = {
+                            damageRoll: Dice.roll('D12'),
+                            wounded:  false
+                        };
+                        if (attackDamageRoll.damageRoll >= target.stats.T) {
+                            attackDamageRoll.wounded = true;
+                        }
+                        hitSuccess.attackDamageRolls.push(attackDamageRoll);
                     }
                 }
                 break;

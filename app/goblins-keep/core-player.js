@@ -25,9 +25,14 @@ let Player = {
                 W: Dice.roll('D4', 1),
                 FP: 2,
             },
-            attackCombatSkill: [],
-            rangedCombatSkill: [],
-            weapons: [],
+            weapons: [{
+                'type': 'Weapon Hand 2 Hand',
+                'name': 'Sword',
+                'range': 0,
+                'damage': 3,
+                'fumble': 1,
+                'critical': 12
+            }],
             armour: [],
             treasure: []
         };

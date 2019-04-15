@@ -20,8 +20,11 @@ let Dice = {
           case 'D8':
             diceRoll = Math.floor(Math.random() * 8) + 1 + bonus;
             break;
-          case 'D12':
+        case 'D12':
             diceRoll = Math.floor(Math.random() * 12) + 1 + bonus;
+            break;
+        case 'D100':
+            diceRoll = Math.floor(Math.random() * 100) + 1 + bonus;
             break;
           case '2D4':
             diceRoll = (Math.floor(Math.random() * 4) + 1 + Math.floor(Math.random() * 4) + 1) + bonus;

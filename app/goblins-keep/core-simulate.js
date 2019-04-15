@@ -21,17 +21,25 @@ let Simulate = {
 
         while (this.player.stats.W > 0 && this.target.stats.W > 0 && attackLoop < 10) {
             combatRoundResult = Combat.fight(this.player, this.target);
-            if (combatRoundResult.wounded === true) {
-                this.target.stats.W--;
+            combatRoundResult.name = this.player.name;
+            for (let attackRounds = 0; attackRounds < combatRoundResult.attackDamageRolls.length; attackRounds++) {
+                if (combatRoundResult.attackDamageRolls[attackRounds].wounded === true) {
+                    this.target.stats.W--;
+                }
             }
             this.combatRounds.push(combatRoundResult);
 
-            combatRoundResult = Combat.fight(this.target, this.player);
-            if (combatRoundResult.wounded === true) {
-                this.player.stats.W--;
+            // Is target alive?
+            if (this.target.stats.W > 0) {
+                combatRoundResult = Combat.fight(this.target, this.player);
+                combatRoundResult.name = this.target.name;
+                for (let attackRounds = 0; attackRounds < combatRoundResult.attackDamageRolls.length; attackRounds++) {
+                    if (combatRoundResult.attackDamageRolls[attackRounds].wounded === true) {
+                        this.player.stats.W--;
+                    }
+                }
+                this.combatRounds.push(combatRoundResult);
             }
-            this.combatRounds.push(combatRoundResult);
-
             attackLoop++;
         }
 
